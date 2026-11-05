@@ -39,7 +39,7 @@ export function ArrayTransformer(): JSX.Element {
       <div className="section-header">
         <div className="section-title">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="3" y="3" width="7" height="7" rx="1" ry="1"></rect><rect x="14" y="3" width="7" height="7" rx="1" ry="1"></rect><rect x="14" y="14" width="7" height="7" rx="1" ry="1"></rect><rect x="3" y="14" width="7" height="7" rx="1" ry="1"></rect>
+            <rect x="3" y="3" width="7" height="7" rx="1" ry="1" /><rect x="14" y="3" width="7" height="7" rx="1" ry="1" /><rect x="14" y="14" width="7" height="7" rx="1" ry="1" /><rect x="3" y="14" width="7" height="7" rx="1" ry="1" />
           </svg>
           Array & Text Transformer
         </div>
@@ -64,7 +64,7 @@ export function ArrayTransformer(): JSX.Element {
             <div className="field-label">Chunk size</div>
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <button className="btn btn-outline" onClick={decrement}>−</button>
-              <span style={{ minWidth: "34px", textAlign: "center", fontWeight: 700, color: var(--color-primary) }}>{chunkSize}</span>
+              <span style={{ minWidth: "34px", textAlign: "center", fontWeight: 700, color: "var(--color-primary)" }}>{chunkSize}</span>
               <button className="btn btn-outline" onClick={increment}>+</button>
               <button className="btn btn-outline btn-sm" onClick={handleResetChunk} style={{ marginLeft: 8 }}>Reset</button>
             </div>
@@ -75,7 +75,7 @@ export function ArrayTransformer(): JSX.Element {
           <div className="field-col">
             <div className="output-wrap">
               <div className="output-label">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" /></svg>
                 Unique items
               </div>
               <div className="output-block">{JSON.stringify(uniqueItems, null, 2)}</div>
@@ -87,7 +87,7 @@ export function ArrayTransformer(): JSX.Element {
           <div className="field-col">
             <div className="output-wrap">
               <div className="output-label">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="14" y="14" width="7" height="7" /><rect x="3" y="14" width="7" height="7" /></svg>
                 Chunked (size {chunkSize})
               </div>
               <div className="output-block">{JSON.stringify(chunkedItems, null, 2)}</div>
@@ -99,7 +99,7 @@ export function ArrayTransformer(): JSX.Element {
           <div className="field-col">
             <div className="output-wrap">
               <div className="output-label">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="19" r="1"></circle><path d="M1 5h22M1 12h22M1 19h22"></path></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="5" r="1" /><circle cx="12" cy="12" r="1" /><circle cx="12" cy="19" r="1" /><path d="M1 5h22M1 12h22M1 19h22" /></svg>
                 Grouped by first letter
               </div>
               <div className="output-block">{JSON.stringify(groupedItems, null, 2)}</div>
@@ -140,3 +140,4 @@ export function ArrayTransformer(): JSX.Element {
 }
 
 export default ArrayTransformer;
+

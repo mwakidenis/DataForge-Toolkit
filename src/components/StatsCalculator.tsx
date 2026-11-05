@@ -66,7 +66,7 @@ export function StatsCalculator(): JSX.Element {
     <section className="section-card">
       <div className="section-header">
         <div className="section-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="12" x2="2" y2="12"></line><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2z"></path><polyline points="22 7 17 12 22 17"></polyline><polyline points="2 17 7 12 2 7"></polyline></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="12" x2="2" y2="12" /><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2z" /><polyline points="22 7 17 12 22 17" /><polyline points="2 17 7 12 2 7" /></svg>
           Statistical Calculator
         </div>
         <div className="section-actions">
@@ -98,7 +98,7 @@ export function StatsCalculator(): JSX.Element {
           <div className="field-col">
             <div className="output-wrap">
               <div className="output-label">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="1" y1="4" x2="23" y2="4"></line><line x1="1" y1="20" x2="23" y2="20"></line><rect x="3" y="4" width="18" height="16" rx="2" ry="2"></rect><line x1="16" y1="13" x2="16" y2="21"></line><line x1="10" y1="13" x2="6" y2="21"></line></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="1" y1="4" x2="23" y2="4" /><line x1="1" y1="20" x2="23" y2="20" /><rect x="3" y="4" width="18" height="16" rx="2" ry="2" /><line x1="16" y1="13" x2="16" y2="21" /><line x1="10" y1="13" x2="6" y2="21" /></svg>
                 Raw numbers (parsed)
               </div>
               <div className="output-block">{JSON.stringify(numbers, null, 2)}</div>
@@ -110,7 +110,7 @@ export function StatsCalculator(): JSX.Element {
           <div className="field-col">
             <div className="output-wrap">
               <div className="output-label">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" /></svg>
                 Mode values
               </div>
               <div className="output-block">
@@ -132,3 +132,4 @@ function s(n: number): string {
 }
 
 export default StatsCalculator;
+
