@@ -95,9 +95,16 @@ export function JsonInspector(): JSX.Element {
         <textarea value={jsonInput} onChange={handleJsonChange} />
         {parsed === null && <span className="error-msg">Invalid JSON — please fix syntax errors.</span>}
         <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
-          <button className="btn btn-primary" onClick={() => addSnippet(jsonInput)}>
-            Save snippet
-          </button>
+          {parsed !== null && (
+            <button className="btn btn-primary" onClick={() => addSnippet(jsonInput)}>
+              Save snippet
+            </button>
+          )}
+          {parsed === null && (
+            <button className="btn" disabled title="Fix JSON errors before saving">
+              Save snippet
+            </button>
+          )}
         </div>
       </div>
 
