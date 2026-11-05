@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+title: DataForge Toolkit
+message: A production-ready, single-page client-side web application for array, object, and statistical data transformations powered by @mwakidenis/logx and @mwakidenis/logx-react.
+type: software
+repository-code: https://github.com/mwakidenis/DataForge-Toolkit
+url: https://github.com/mwakidenis/DataForge-Toolkit
+authors:
+  - family-names: Denis
+    given-names: Mwaki
+    email: mwakidenice@gmail.com
+    affiliation: mwakidenis
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+license: MIT
+version: 1.0.0
+date-released: "2026-11-05"
+keywords:
+  - react
+  - typescript
+  - vite
+  - data-transformation
+  - utilities
+  - toolkit
+  - logx
