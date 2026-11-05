@@ -51,56 +51,53 @@ export function StatsCalculator(): JSX.Element {
     setRawInput(e.target.value);
   }, []);
 
-  const statRows = [
-    { label: "Sum", value: stats.sum.toFixed(2), icon: "#", color: "primary" },
-    { label: "Mean", value: stats.mean.toFixed(2), icon: "μ", color: "primary" },
-    { label: "Median", value: stats.median.toFixed(2), icon: "÷", color: "primary" },
-    { label: "Mode", value: stats.mode.join(", ") || "—", icon: "●", color: "success" },
-    { label: "Variance", value: stats.variance.toFixed(4), icon: "σ²", color: "primary" },
-    { label: "Std. Deviation", value: stats.stdDev.toFixed(4), icon: "σ", color: "primary" },
-    { label: "Min", value: stats.min.toFixed(2), icon: "▼", color: "danger" },
-    { label: "Max", value: stats.max.toFixed(2), icon: "▲", color: "success" },
+  const statBoxes = [
+    { label: "Sum", value: stats.sum.toFixed(2), icon: "#", variant: "primary", unit: "" },
+    { label: "Mean", value: stats.mean.toFixed(2), icon: "μ", variant: "primary", unit: "" },
+    { label: "Median", value: stats.median.toFixed(2), icon: "÷", variant: "primary", unit: "" },
+    { label: "Mode", value: stats.mode.join(", ") || "—", icon: "●", variant: "success", unit: "" },
+    { label: "Variance", value: stats.variance.toFixed(4), icon: "σ²", variant: "primary", unit: "" },
+    { label: "Std. Dev.", value: stats.stdDev.toFixed(4), icon: "σ", variant: "primary", unit: "" },
+    { label: "Min", value: stats.min.toFixed(2), icon: "▼", variant: "danger", unit: "" },
+    { label: "Max", value: stats.max.toFixed(2), icon: "▲", variant: "success", unit: "" },
   ];
 
   return (
     <section className="section-card">
-      <div className="section-header">
-        <div className="section-title">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="12" x2="2" y2="12" /><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2z" /><polyline points="22 7 17 12 22 17" /><polyline points="2 17 7 12 2 7" /></svg>
-          Statistical Calculator
-        </div>
-        <div className="section-actions">
-          <button className="btn btn-outline btn-sm" onClick={() => setRawInput("")}>Clear</button>
+      <div className="card-header">
+        <div className="card-title">Statistical Quick-Calculator</div>
+        <div className="card-tools">
+          <button className="btn btn-outline btn-sm" onClick={() => setRawInput("")}>Clear input</button>
         </div>
       </div>
-      <div className="section-body">
+      <div className="card-body">
         <div className="field-row">
           <div className="field-col" style={{ flex: 1 }}>
             <div className="field-label">Numeric sequence</div>
-            <textarea className="input-field" value={rawInput} onChange={handleInputChange} rows={4} placeholder="e.g. 12, 45, 22, 89, 34" />
+            <textarea className="input-field" value={rawInput} onChange={handleInputChange} rows={3} placeholder="e.g. 12, 45, 22, 89, 34" />
             <div className="tip">Parsed {numbers.length} number{s(numbers.length)}.</div>
           </div>
         </div>
 
-        <div className="stats-grid">
-          {statRows.map((row) => (
-            <div key={row.label} className="stat-card">
-              <div className="stat-header">
-                <div className="stat-label">{row.label}</div>
-                <div className="stat-icon">{row.icon}</div>
+        <div className="four-col">
+          {statBoxes.map((box) => (
+            <div key={box.label} className={`small-box small-box-${box.variant}`}>
+              <div className="inner">
+                <div style={{ fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "#6c757d", marginBottom: 0.375 }}>{box.label}</div>
+                <div style={{ fontSize: "1.75rem", fontWeight: 800, color: "#212529", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{box.value}</div>
               </div>
-              <div className={`stat-value ${row.color === "success" ? "text-success" : row.color === "danger" ? "text-danger" : ""}`}>{row.value}</div>
+              <div className="small-box-icon">{box.icon}</div>
+              <div className="small-box-footer">
+                <a href="#" onClick={(e) => e.preventDefault()}>Details</a>
+              </div>
             </div>
           ))}
         </div>
 
-        <div className="two-col">
+        <div className="four-col">
           <div className="field-col">
             <div className="output-wrap">
-              <div className="output-label">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="1" y1="4" x2="23" y2="4" /><line x1="1" y1="20" x2="23" y2="20" /><rect x="3" y="4" width="18" height="16" rx="2" ry="2" /><line x1="16" y1="13" x2="16" y2="21" /><line x1="10" y1="13" x2="6" y2="21" /></svg>
-                Raw numbers (parsed)
-              </div>
+              <div className="output-label">Raw numbers (parsed)</div>
               <div className="output-block">{JSON.stringify(numbers, null, 2)}</div>
               <div className="output-actions">
                 <CopyButton text={JSON.stringify(numbers, null, 2)} />
@@ -109,16 +106,44 @@ export function StatsCalculator(): JSX.Element {
           </div>
           <div className="field-col">
             <div className="output-wrap">
-              <div className="output-label">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" /></svg>
-                Mode values
-              </div>
-              <div className="output-block">
-                {stats.mode.length > 0 ? JSON.stringify(stats.mode, null, 2) : "No mode (all values unique)"}
-              </div>
+              <div className="output-label">Mode values</div>
+              <div className="output-block">{stats.mode.length > 0 ? JSON.stringify(stats.mode, null, 2) : "No mode (all values unique)"}</div>
               <div className="output-actions">
                 <CopyButton text={JSON.stringify(stats.mode, null, 2)} />
               </div>
+            </div>
+          </div>
+          <div className="field-col">
+            <div className="output-wrap">
+              <div className="output-label">Sorted sequence</div>
+              <div className="output-block">{JSON.stringify([...numbers].sort((a, b) => a - b), null, 2)}</div>
+              <div className="output-actions">
+                <CopyButton text={JSON.stringify([...numbers].sort((a, b) => a - b), null, 2)} />
+              </div>
+            </div>
+          </div>
+          <div className="field-col">
+            <div className="output-wrap">
+              <div className="output-label">Distribution table</div>
+              <table className="table" style={{ width: "100%" }}>
+                <thead>
+                  <tr><th>Value</th><th>Frequency</th><th>%</th></tr>
+                </thead>
+                <tbody>
+                  {(() => {
+                    const freq = new Map<number, number>();
+                    for (const n of numbers) freq.set(n, (freq.get(n) || 0) + 1);
+                    return Array.from(freq.entries()).map(([val, count]) => (
+                      <tr key={val}>
+                        <td>{val}</td>
+                        <td>{count}</td>
+                        <td>{((count / numbers.length) * 100).toFixed(1)}%</td>
+                      </tr>
+                    ));
+                  })()}
+                  {numbers.length === 0 && <tr><td colSpan={3} style={{ textAlign: "center", color: "#adb5bd" }}>No data</td></tr>}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -132,4 +157,3 @@ function s(n: number): string {
 }
 
 export default StatsCalculator;
-
