@@ -52,14 +52,14 @@ export function StatsCalculator(): JSX.Element {
   }, []);
 
   const statBoxes = [
-    { label: "Sum", value: stats.sum.toFixed(2), icon: "#", variant: "primary", unit: "" },
-    { label: "Mean", value: stats.mean.toFixed(2), icon: "μ", variant: "primary", unit: "" },
-    { label: "Median", value: stats.median.toFixed(2), icon: "÷", variant: "primary", unit: "" },
-    { label: "Mode", value: stats.mode.join(", ") || "—", icon: "●", variant: "success", unit: "" },
-    { label: "Variance", value: stats.variance.toFixed(4), icon: "σ²", variant: "primary", unit: "" },
-    { label: "Std. Dev.", value: stats.stdDev.toFixed(4), icon: "σ", variant: "primary", unit: "" },
-    { label: "Min", value: stats.min.toFixed(2), icon: "▼", variant: "danger", unit: "" },
-    { label: "Max", value: stats.max.toFixed(2), icon: "▲", variant: "success", unit: "" },
+    { label: "Sum", value: stats.sum.toFixed(2), icon: "bi-hash", variant: "primary", unit: "" },
+    { label: "Mean", value: stats.mean.toFixed(2), icon: "bi-slash-square", variant: "primary", unit: "" },
+    { label: "Median", value: stats.median.toFixed(2), icon: "bi-divide", variant: "primary", unit: "" },
+    { label: "Mode", value: stats.mode.join(", ") || "—", icon: "bi-dash-circle", variant: "success", unit: "" },
+    { label: "Variance", value: stats.variance.toFixed(4), icon: "bi-calculator-fill", variant: "primary", unit: "" },
+    { label: "Std. Dev.", value: stats.stdDev.toFixed(4), icon: "bi-pie-chart-fill", variant: "primary", unit: "" },
+    { label: "Min", value: stats.min.toFixed(2), icon: "bi-arrow-down", variant: "danger", unit: "" },
+    { label: "Max", value: stats.max.toFixed(2), icon: "bi-arrow-up", variant: "success", unit: "" },
   ];
 
   return (
@@ -81,12 +81,12 @@ export function StatsCalculator(): JSX.Element {
 
         <div className="four-col">
           {statBoxes.map((box) => (
-            <div key={box.label} className={`small-box small-box-${box.variant}`}>
+            <div key={box.label} className={`small-box text-bg-${box.variant}`}>
               <div className="inner">
-                <div style={{ fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "#6c757d", marginBottom: 0.375 }}>{box.label}</div>
-                <div style={{ fontSize: "1.75rem", fontWeight: 800, color: "#212529", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{box.value}</div>
+                <div style={{ fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "rgba(255,255,255,0.8)", marginBottom: 0.375 }}>{box.label}</div>
+                <div style={{ fontSize: "1.75rem", fontWeight: 800, color: "#fff", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{box.value}</div>
               </div>
-              <div className="small-box-icon">{box.icon}</div>
+              <div className="small-box-icon"><i className={`bi ${box.icon}`}></i></div>
               <div className="small-box-footer">
                 <a href="#" onClick={(e) => e.preventDefault()}>Details</a>
               </div>

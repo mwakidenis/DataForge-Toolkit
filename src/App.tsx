@@ -13,9 +13,9 @@ interface ToolDef {
 }
 
 const TOOLS: Record<Tool, ToolDef> = {
-  array: { label: "Array & Text Transformer", icon: "↔", component: ArrayTransformer },
-  json: { label: "Object & JSON Inspector", icon: "{}", component: JsonInspector },
-  stats: { label: "Statistical Calculator", icon: "Σ", component: StatsCalculator },
+  array: { label: "Array & Text Transformer", icon: "bi-sliders", component: ArrayTransformer },
+  json: { label: "Object & JSON Inspector", icon: "bi-file-earmark-text", component: JsonInspector },
+  stats: { label: "Statistical Calculator", icon: "bi-calculator", component: StatsCalculator },
 };
 
 export function App(): JSX.Element {
@@ -45,11 +45,7 @@ export function App(): JSX.Element {
                   onClick={() => setSidebarOpen(!sidebarOpen)}
                   aria-label="Toggle sidebar"
                 >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="3" y1="12" x2="21" y2="12"></line>
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <line x1="3" y1="18" x2="21" y2="18"></line>
-                  </svg>
+                  <i className="bi bi-list"></i>
                 </button>
               </li>
             </ul>
@@ -59,10 +55,7 @@ export function App(): JSX.Element {
               <div className="navbar-search-field">
                 <input type="search" className="input-field" placeholder="Search…" autoComplete="off" />
                 <button className="nav-link navbar-search-submit" type="submit" aria-label="Submit search">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                  </svg>
+                  <i className="bi bi-search"></i>
                 </button>
               </div>
             </form>
@@ -70,10 +63,7 @@ export function App(): JSX.Element {
             <ul className="navbar-nav navbar-end">
               <li className="nav-item">
                 <button className="nav-link notice" aria-label="Notifications: 1 unread">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                  </svg>
+                  <i className="bi bi-bell"></i>
                   <span className="navbar-badge badge badge-danger">1</span>
                 </button>
               </li>
@@ -94,11 +84,7 @@ export function App(): JSX.Element {
         <aside className={`app-sidebar ${sidebarOpen ? "open" : ""}`}>
           <div className="sidebar-brand">
             <a href="#" className="brand-link" onClick={(e) => e.preventDefault()}>
-              <svg className="brand-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: "#0d6efd" }}>
-                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                <path d="M2 17l10 5 10-5"></path>
-                <path d="M2 12l10 5 10-5"></path>
-              </svg>
+              <i className="bi bi-grid-1x2 brand-image" style={{ color: "#0d6efd", fontSize: "1.5rem" }}></i>
               <div className="brand-text-wrap">
                 <div className="brand-text">DataForge Toolkit</div>
                 <div className="brand-sub">Utility Dashboard</div>
@@ -109,10 +95,7 @@ export function App(): JSX.Element {
           <div className="sidebar-search" role="search">
             <label className="visually-hidden">Filter menu</label>
             <input type="search" className="input-field" placeholder="Filter menu…" autoComplete="off" />
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
+            <i className="bi bi-search"></i>
           </div>
 
           <div className="sidebar-wrapper">
@@ -125,21 +108,7 @@ export function App(): JSX.Element {
                       href="#"
                       onClick={(e) => { e.preventDefault(); setActiveTool(key as Tool); setSidebarOpen(false); }}
                     >
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="nav-icon">
-                        {def.icon === "↔" ? (
-                          <>
-                            <line x1="8" y1="12" x2="16" y2="12"></line>
-                            <line x1="12" y1="8" x2="12" y2="16"></line>
-                          </>
-                        ) : def.icon === "{}" ? (
-                          <path d="M21 7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                        ) : (
-                          <>
-                            <polygon points="20.63 3 16 3 16 8 20.63 8"></polygon>
-                            <path d="M3 16l5-5 5 5-5 5"></path>
-                          </>
-                        )}
-                      </svg>
+                      <i className={`nav-icon bi ${def.icon}`}></i>
                       <p>{def.label}</p>
                     </a>
                   </li>

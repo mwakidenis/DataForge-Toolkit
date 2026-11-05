@@ -89,10 +89,7 @@ export function JsonInspector(): JSX.Element {
         <div className="four-col">
           <div className="field-col">
             <div className="output-wrap">
-              <div className="output-label">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17" /><polyline points="16 7 20.5 12 16 17" /></svg>
-                Deep get
-              </div>
+              <div className="output-label">Deep get</div>
               <div className="output-block">
                 {getResult.error ? `Error: ${getResult.error}` : JSON.stringify(getResult.value, null, 2)}
               </div>
@@ -103,10 +100,7 @@ export function JsonInspector(): JSX.Element {
           </div>
           <div className="field-col">
             <div className="output-wrap">
-              <div className="output-label">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" /></svg>
-                Deep set
-              </div>
+              <div className="output-label">Deep set</div>
               <div style={{ display: "flex", gap: 8, marginBottom: 0.375 }}>
                 <input className="input-field" type="text" value={setValue} onChange={(e) => setSetValue(e.target.value)} placeholder="set value" style={{ flex: 1 }} />
               </div>
@@ -120,10 +114,7 @@ export function JsonInspector(): JSX.Element {
           </div>
           <div className="field-col">
             <div className="output-wrap">
-              <div className="output-label">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 0 1-9 9 9 9 0 0 1-9-9 9 9 0 0 1 9-9 9 9 0 0 1 9 9z" /><line x1="12" y1="3" x2="12" y2="21" /></svg>
-                Deep clone
-              </div>
+              <div className="output-label">Deep clone</div>
               <div className="output-block">
                 {cloneResult.error ? `Error: ${cloneResult.error}` : JSON.stringify(cloneResult.value, null, 2)}
               </div>
@@ -134,10 +125,7 @@ export function JsonInspector(): JSX.Element {
           </div>
           <div className="field-col">
             <div className="output-wrap">
-              <div className="output-label">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /><line x1="10" y1="11" x2="10" y2="17" /><line x1="14" y1="11" x2="14" y2="17" /></svg>
-                Pick / Omit
-              </div>
+              <div className="output-label">Pick / Omit</div>
               <div style={{ display: "flex", gap: 8, marginBottom: 0.375 }}>
                 <input className="input-field" type="text" value={pickKeys} onChange={(e) => setPickKeys(e.target.value)} placeholder="pick keys" style={{ flex: 1 }} />
               </div>
@@ -145,8 +133,8 @@ export function JsonInspector(): JSX.Element {
                 <input className="input-field" type="text" value={omitKeys} onChange={(e) => setOmitKeys(e.target.value)} placeholder="omit keys" style={{ flex: 1 }} />
               </div>
               <div style={{ display: "flex", gap: 0.75 }}>
-                <button className="btn btn-primary btn-sm" onClick={pickResult.error ? undefined : () => navigator.clipboard.writeText(JSON.stringify(pickResult.value, null, 2))}>Copy picked</button>
-                <button className="btn btn-outline btn-sm" onClick={omitResult.error ? undefined : () => navigator.clipboard.writeText(JSON.stringify(omitResult.value, null, 2))}>Copy omitted</button>
+                <button className="btn btn-primary btn-sm" onClick={() => navigator.clipboard.writeText(JSON.stringify(pickResult.value, null, 2))}>Copy picked</button>
+                <button className="btn btn-outline btn-sm" onClick={() => navigator.clipboard.writeText(JSON.stringify(omitResult.value, null, 2))}>Copy omitted</button>
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0.75, marginTop: 0.5 }}>
                 <div style={{ border: "1px solid #dee2e6", borderRadius: 4, padding: "0.5rem", background: "#f8f9fa" }}>
@@ -165,14 +153,13 @@ export function JsonInspector(): JSX.Element {
         <div className="section-card" style={{ marginTop: "1.25rem", border: "none", boxShadow: "none" }}>
           <div className="card-header">
             <div className="card-title">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="16" y1="13" x2="8" y2="13" /><line x1="16" y1="17" x2="8" y2="17" /><polyline points="10 9 9 9 8 9" /></svg>
-              Recent snippets (localStorage)
+              <i className="bi bi-journals me-2"></i> Recent snippets (localStorage)
             </div>
           </div>
           <div className="card-body">
             {recentSnippets.length === 0 ? (
               <div className="empty-state">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="16" y1="2" x2="16" y2="14" /><line x1="8" y1="2" x2="8" y2="14" /><line x1="12" y1="18" x2="12" y2="14" /><line x1="9" y1="18" x2="15" y2="18" /></svg>
+                <i className="bi bi-journal-text" style={{ fontSize: "2.5rem" }}></i>
                 <h3>No saved snippets yet</h3>
                 <p>Save JSON snippets to localStorage to reuse them here.</p>
               </div>
