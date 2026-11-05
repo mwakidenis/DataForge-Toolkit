@@ -1,0 +1,16 @@
+{
+  "$schema": "https://changesets.github.io/schema.json",
+  "changelog": [
+    "@changesets/changelog-github",
+    {
+      "repo": "mwakidenis/DataForge-Toolkit"
+    }
+  ],
+  "access": "public",
+  "baseBranch": "master",
+  "commit": "chore: release",
+  "fixed": [],
+  "linked": [],
+  "major": 0,
+  "prebump": "minor"
+}
