@@ -78,9 +78,9 @@ export interface ObjectDiffResult {
 }
 
 export interface CsvParseOptions {
-  delimiter: "," | ";" | "\t" | "|";
-  hasHeader: boolean;
-  trimValues: boolean;
+  delimiter?: "," | ";" | "\t" | "|";
+  hasHeader?: boolean;
+  trimValues?: boolean;
 }
 
 export interface RegexMatchResult {

@@ -49,7 +49,8 @@ export interface DedupResult {
 export function deduplicateArray(items: string[]): DedupResult {
   const original = [...items];
   const uniqueItems = unique(items);
-  const removed = original.filter((item) => !uniqueItems.includes(item));
+  // Items removed are duplicates: items whose first occurrence index != current index
+  const removed = items.filter((item, index) => items.indexOf(item) !== index);
 
   const stats: ArrayStats = {
     count: original.length,
