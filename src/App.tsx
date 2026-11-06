@@ -8,8 +8,12 @@ import RegexTester from "./components/RegexTester";
 import ObjectDiff from "./components/ObjectDiff";
 import UrlEncoder from "./components/UrlEncoder";
 import Base64Converter from "./components/Base64Converter";
+import JwtDecoder from "./components/JwtDecoder";
+import HashGenerator from "./components/HashGenerator";
+import ColorConverter from "./components/ColorConverter";
+import TimestampConverter from "./components/TimestampConverter";
 
-type Tool = "array" | "json" | "stats" | "csv" | "regex" | "diff" | "url" | "base64";
+type Tool = "array" | "json" | "stats" | "csv" | "regex" | "diff" | "url" | "base64" | "jwt" | "hash" | "color" | "timestamp";
 
 interface ToolDef {
   label: string;
@@ -26,6 +30,10 @@ const TOOLS: Record<Tool, ToolDef> = {
   diff: { label: "Object Diff", icon: "bi-git", component: ObjectDiff },
   url: { label: "URL Encoder / Decoder", icon: "bi-link-45deg", component: UrlEncoder },
   base64: { label: "Base64 Encoder / Decoder", icon: "bi-file-earmark-font", component: Base64Converter },
+  jwt: { label: "JWT Decoder", icon: "bi-tag", component: JwtDecoder },
+  hash: { label: "Hash Generator", icon: "bi-lock", component: HashGenerator },
+  color: { label: "Color Converter", icon: "bi-palette", component: ColorConverter },
+  timestamp: { label: "Timestamp Converter", icon: "bi-clock", component: TimestampConverter },
 };
 
 export function App(): JSX.Element {

@@ -1,6 +1,6 @@
 # DataForge Toolkit
 
-A production-ready, single-page client-side web application for array, object, and statistical data transformations — powered by `@mwakidenis/logx` and `@mwakidenis/logx-react`.
+A production-ready, single-page client-side web application for array, object, and statistical data transformations.
 
 ## Features
 
@@ -16,10 +16,17 @@ A production-ready, single-page client-side web application for array, object, a
 | **Object Diff** | `bi-git` | Side-by-side deep structural comparison of two JSON objects, highlighting added/removed/modified/unchanged keys with similarity score |
 | **URL Encoder / Decoder** | `bi-link-45deg` | URL encode/decode with `encodeURIComponent`/`encodeURI` methods, query string builder/parser, validity indicator |
 | **Base64 Encoder / Decoder** | `bi-file-earmark-font` | Base64 encode/decode with standard and URL-safe variants, byte count, validity indicator |
+| **JWT Decoder** | `bi-tag` | Decode JWT header.payload.signature, view header/payload/signature separately |
+| **Hash Generator** | `bi-lock` | MD5, SHA-1, SHA-256, SHA-512 hashing with all-algorithms comparison |
+| **Color Converter** | `bi-palette` | Convert between HEX, RGB, and HSL color formats with live preview |
+| **Timestamp Converter** | `bi-clock` | Unix timestamp ↔ human readable date, ISO 8601 output, current time |
 
 ### Architecture
 
-- **Service Layer** (`src/services/`): Pure TypeScript service functions leveraging `@mwakidenis/logx` utilities — `arrayService`, `jsonService`, `statsService`, `csvService`, `regexService`, `diffService`, `urlService`
+- **Service Layer** (`src/services/`): Pure TypeScript service functions — `arrayService`, `jsonService`, `statsService`, `csvService`, `regexService`, `diffService`, `urlService`
+- **Utility Layer** (`src/utils/`): Inlined `@mwakidenis/logx` implementations — `array`, `object`, `string`, `math`, `base64`, `jwt`, `hash`, `color`, `timestamp`
+- **Hook Layer** (`src/hooks/`): Inlined `@mwakidenis/logx-react` hooks — `useDebouncedValue`, `useCounter`, `useLocalStorage`
+- **UI Layer** (`src/ui/`): Inlined `@mwakidenis/logx-react` components — `ErrorBoundary`, `CopyButton`
 - **Error Boundary** wrapping the entire app for graceful error handling
 - **Persistent state** via `useLocalStorage` for user inputs and preferences across sessions
 - **Debounced input** via `useDebouncedValue` to prevent layout lag
@@ -27,8 +34,7 @@ A production-ready, single-page client-side web application for array, object, a
 ## Tech Stack
 
 - React 18 + TypeScript (Vite)
-- `@mwakidenis/logx` — core utilities (array, object, string, math)
-- `@mwakidenis/logx-react` — hooks (`useDebouncedValue`, `useCounter`, `useLocalStorage`) and UI components (`ErrorBoundary`, `CopyButton`)
+- All utilities inlined (no external `@mwakidenis/*` npm dependencies)
 - Professional AdminLTE-style dashboard with dark/light neutral card-based layout, Bootstrap Icons
 
 ## Scripts
@@ -47,7 +53,7 @@ A production-ready, single-page client-side web application for array, object, a
 
 ```
 src/
-  App.tsx              # ErrorBoundary-wrapped tab router with 6-tool navigation
+  App.tsx              # ErrorBoundary-wrapped tab router with 12-tool navigation
   main.tsx             # React entry point
   index.css            # AdminLTE-style global styles
   components/
@@ -59,6 +65,10 @@ src/
     ObjectDiff.tsx           # Deep object structural comparison
     UrlEncoder.tsx           # URL encoder/decoder with query params
     Base64Converter.tsx      # Base64 encoder/decoder
+    JwtDecoder.tsx           # JWT token decoder
+    HashGenerator.tsx        # MD5/SHA hash generator
+    ColorConverter.tsx       # HEX/RGB/HSL color converter
+    TimestampConverter.tsx   # Unix timestamp converter
   services/
     index.ts                 # Services barrel export
     types.ts                 # Shared TypeScript types and interfaces
@@ -69,6 +79,11 @@ src/
     regexService.ts          # Regex matching, replacement, validation
     diffService.ts           # Deep object diff with similarity scoring
     urlService.ts            # URL encoding/decoding, query string builder/parser
+    base64.ts                # Base64 encode/decode
+    jwt.ts                   # JWT token decoding
+    hash.ts                  # MD5/SHA1/SHA256/SHA512 hashing
+    color.ts                 # HEX/RGB/HSL color conversions
+    timestamp.ts             # Unix timestamp conversions
   __tests__/
     arrayService.test.ts
     jsonService.test.ts
@@ -78,12 +93,16 @@ src/
     diffService.test.ts
     urlService.test.ts
     base64Service.test.ts
+    jwtService.test.ts
+    hashService.test.ts
+    colorService.test.ts
+    timestampService.test.ts
 ```
 
 ## Quality Gates
 
 - `npm run typecheck` — TypeScript strict mode, zero errors
-- `npm run test` — Vitest: 81 tests passing across 8 service test files
+- `npm run test` — Vitest: 104 tests passing across 12 service test files
 - `npm run build` — Vite production build, zero errors
 - Cloudflare Pages ready (`wrangler.toml`, `_redirects` for SPA fallback)
 
