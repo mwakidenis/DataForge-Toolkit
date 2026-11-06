@@ -1,65 +1,60 @@
 import { useCallback, useMemo, useState } from "react";
-import {
-  sum,
-  mean,
-  median,
-  mode,
-  variance,
-  standardDeviation,
-  min,
-  max,
-} from "@mwakidenis/logx/math";
 import { useDebouncedValue } from "@mwakidenis/logx-react/hooks/useDebouncedValue";
 import { CopyButton } from "@mwakidenis/logx-react/components/CopyButton";
+import { transformStats, generateSummaryReport } from "../services/statsService";
 
 export function StatsCalculator(): JSX.Element {
   const [rawInput, setRawInput] = useState<string>("12, 45, 22, 89, 34, 12, 78, 56, 34, 90");
+  const [delimiter, setDelimiter] = useState<"," | "\n" | ";" | " " | "\t">(",");
   const debouncedInput = useDebouncedValue(rawInput, 300);
 
-  const numbers = useMemo(() => {
-    if (!debouncedInput.trim()) return [];
-    return debouncedInput
-      .split(/[,\s]+/)
-      .map((s: string) => s.trim())
-      .filter(Boolean)
-      .map((s: string) => Number(s))
-      .filter((n: number) => !Number.isNaN(n));
-  }, [debouncedInput]);
+  const result = useMemo(() => {
+    return transformStats(debouncedInput, { delimiter });
+  }, [debouncedInput, delimiter]);
 
-  const stats = useMemo(() => {
-    if (numbers.length === 0) {
-      return { sum: 0, mean: 0, median: 0, mode: [] as number[], variance: 0, stdDev: 0, min: 0, max: 0, count: 0 };
-    }
-    try {
-      return {
-        sum: sum(numbers),
-        mean: mean(numbers),
-        median: median(numbers),
-        mode: mode(numbers),
-        variance: variance(numbers),
-        stdDev: standardDeviation(numbers),
-        min: min(numbers),
-        max: max(numbers),
-        count: numbers.length,
-      };
-    } catch {
-      return { sum: 0, mean: 0, median: 0, mode: [] as number[], variance: 0, stdDev: 0, min: 0, max: 0, count: numbers.length };
-    }
-  }, [numbers]);
+  const { numbers, parsedCount, stats, sorted } = result;
 
   const handleInputChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setRawInput(e.target.value);
-  }, []);
+  }, [setRawInput]);
 
-  const statBoxes = [
-    { label: "Sum", value: stats.sum.toFixed(2), icon: "bi-hash", variant: "primary", unit: "" },
-    { label: "Mean", value: stats.mean.toFixed(2), icon: "bi-slash-square", variant: "primary", unit: "" },
-    { label: "Median", value: stats.median.toFixed(2), icon: "bi-divide", variant: "primary", unit: "" },
-    { label: "Mode", value: stats.mode.join(", ") || "—", icon: "bi-dash-circle", variant: "success", unit: "" },
-    { label: "Variance", value: stats.variance.toFixed(4), icon: "bi-calculator-fill", variant: "primary", unit: "" },
-    { label: "Std. Dev.", value: stats.stdDev.toFixed(4), icon: "bi-pie-chart-fill", variant: "primary", unit: "" },
-    { label: "Min", value: stats.min.toFixed(2), icon: "bi-arrow-down", variant: "danger", unit: "" },
-    { label: "Max", value: stats.max.toFixed(2), icon: "bi-arrow-up", variant: "success", unit: "" },
+  const handleDelimiterChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    setDelimiter(e.target.value as "," | "\n" | ";" | " " | "\t");
+  }, [setDelimiter]);
+
+  const handleClearInput = useCallback(() => { setRawInput(""); }, [setRawInput]);
+
+  const handleDownloadReport = useCallback(() => {
+    const report = generateSummaryReport(stats, rawInput);
+    const blob = new Blob([report], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "dataforge-stats-report.txt";
+    a.click();
+    URL.revokeObjectURL(url);
+  }, [stats, rawInput]);
+
+  const statBoxes: Array<{ label: string; value: string; icon: string; variant: string }> = [
+    { label: "Sum", value: stats.sum.toFixed(2), icon: "bi-hash", variant: "primary" },
+    { label: "Mean", value: stats.mean.toFixed(2), icon: "bi-slash-square", variant: "primary" },
+    { label: "Median", value: stats.median.toFixed(2), icon: "bi-divide", variant: "primary" },
+    { label: "Mode", value: stats.mode.join(", ") || "—", icon: "bi-dash-circle", variant: "success" },
+    { label: "Variance", value: stats.variance.toFixed(4), icon: "bi-calculator-fill", variant: "primary" },
+    { label: "Std. Dev.", value: stats.stdDev.toFixed(4), icon: "bi-pie-chart-fill", variant: "primary" },
+    { label: "Min", value: stats.min.toFixed(2), icon: "bi-arrow-down", variant: "danger" },
+    { label: "Max", value: stats.max.toFixed(2), icon: "bi-arrow-up", variant: "success" },
+  ];
+
+  const extendedStats: Array<{ label: string; value: string }> = [
+    { label: "Count", value: stats.count.toString() },
+    { label: "Range", value: stats.range.toFixed(4) },
+    { label: "IQR", value: stats.iqr.toFixed(6) },
+    { label: "P25", value: stats.p25.toFixed(4) },
+    { label: "P50", value: stats.p50.toFixed(4) },
+    { label: "P75", value: stats.p75.toFixed(4) },
+    { label: "P90", value: stats.p90.toFixed(4) },
+    { label: "P95", value: stats.p95.toFixed(4) },
   ];
 
   return (
@@ -67,15 +62,26 @@ export function StatsCalculator(): JSX.Element {
       <div className="card-header">
         <div className="card-title">Statistical Quick-Calculator</div>
         <div className="card-tools">
-          <button className="btn btn-outline btn-sm" onClick={() => setRawInput("")}>Clear input</button>
+          <button className="btn btn-outline btn-sm" onClick={handleClearInput}>Clear input</button>
+          <button className="btn btn-primary btn-sm" onClick={handleDownloadReport}>Download report</button>
         </div>
       </div>
       <div className="card-body">
         <div className="field-row">
-          <div className="field-col" style={{ flex: 1 }}>
+          <div className="field-col" style={{ flex: 1.5 }}>
             <div className="field-label">Numeric sequence</div>
             <textarea className="input-field" value={rawInput} onChange={handleInputChange} rows={3} placeholder="e.g. 12, 45, 22, 89, 34" />
-            <div className="tip">Parsed {numbers.length} number{s(numbers.length)}.</div>
+            <div className="tip">Parsed {parsedCount} number{parsedCount === 1 ? "" : "s"}.</div>
+          </div>
+          <div className="field-col" style={{ flex: 1 }}>
+            <div className="field-label">Delimiter</div>
+            <select className="input-field" value={delimiter} onChange={handleDelimiterChange}>
+              <option value=",">Comma (,)</option>
+              <option value="\n">Newline</option>
+              <option value=";">Semicolon (;)</option>
+              <option value=" ">Space</option>
+              <option value="\t">Tab</option>
+            </select>
           </div>
         </div>
 
@@ -90,6 +96,18 @@ export function StatsCalculator(): JSX.Element {
               <div className="small-box-footer">
                 <a href="#" onClick={(e) => e.preventDefault()}>Details</a>
               </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="four-col">
+          {extendedStats.map((box) => (
+            <div key={box.label} className="small-box text-bg-secondary" style={{ background: "#6c757d" }}>
+              <div className="inner">
+                <div style={{ fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "rgba(255,255,255,0.8)", marginBottom: 0.375 }}>{box.label}</div>
+                <div style={{ fontSize: "1.75rem", fontWeight: 800, color: "#fff", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{box.value}</div>
+              </div>
+              <div className="small-box-icon"><i className="bi bi-sliders"></i></div>
             </div>
           ))}
         </div>
@@ -116,9 +134,9 @@ export function StatsCalculator(): JSX.Element {
           <div className="field-col">
             <div className="output-wrap">
               <div className="output-label">Sorted sequence</div>
-              <div className="output-block">{JSON.stringify([...numbers].sort((a, b) => a - b), null, 2)}</div>
+              <div className="output-block">{JSON.stringify(sorted, null, 2)}</div>
               <div className="output-actions">
-                <CopyButton text={JSON.stringify([...numbers].sort((a, b) => a - b), null, 2)} />
+                <CopyButton text={JSON.stringify(sorted, null, 2)} />
               </div>
             </div>
           </div>
@@ -130,18 +148,14 @@ export function StatsCalculator(): JSX.Element {
                   <tr><th>Value</th><th>Frequency</th><th>%</th></tr>
                 </thead>
                 <tbody>
-                  {(() => {
-                    const freq = new Map<number, number>();
-                    for (const n of numbers) freq.set(n, (freq.get(n) || 0) + 1);
-                    return Array.from(freq.entries()).map(([val, count]) => (
-                      <tr key={val}>
-                        <td>{val}</td>
-                        <td>{count}</td>
-                        <td>{((count / numbers.length) * 100).toFixed(1)}%</td>
-                      </tr>
-                    ));
-                  })()}
-                  {numbers.length === 0 && <tr><td colSpan={3} style={{ textAlign: "center", color: "#adb5bd" }}>No data</td></tr>}
+                  {stats.frequency.map((entry) => (
+                    <tr key={String(entry.value)}>
+                      <td>{entry.value}</td>
+                      <td>{entry.count}</td>
+                      <td>{entry.percentage.toFixed(1)}%</td>
+                    </tr>
+                  ))}
+                  {stats.frequency.length === 0 && <tr><td colSpan={3} style={{ textAlign: "center", color: "#adb5bd" }}>No data</td></tr>}
                 </tbody>
               </table>
             </div>
@@ -150,10 +164,6 @@ export function StatsCalculator(): JSX.Element {
       </div>
     </section>
   );
-}
-
-function s(n: number): string {
-  return n === 1 ? "" : "s";
 }
 
 export default StatsCalculator;

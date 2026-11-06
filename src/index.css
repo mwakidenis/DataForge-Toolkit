@@ -1033,3 +1033,69 @@ pre {
     width: 10rem;
   }
 }
+
+/* ---------- Status indicators ---------- */
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.375rem;
+}
+
+.status-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+}
+
+.status-dot.valid { background: var(--lte-success); box-shadow: 0 0 0 2px rgba(25, 135, 84, 0.2); }
+.status-dot.invalid { background: var(--lte-danger); box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.2); }
+.status-dot.pending { background: var(--lte-warning); box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.2); }
+.status-dot.info { background: var(--lte-info); box-shadow: 0 0 0 2px rgba(13, 202, 240, 0.2); }
+
+/* ---------- Interactive states ---------- */
+.input-field:focus {
+  border-color: var(--lte-primary);
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+  background: #fff;
+}
+
+.input-field:focus:invalid {
+  border-color: var(--lte-danger);
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.small-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px -4px rgba(0, 0, 0, 0.15);
+}
+
+.section-card:hover {
+  border-color: var(--lte-primary);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link:hover {
+  background: rgba(13, 110, 253, 0.1);
+  color: var(--lte-primary);
+}
+
+.output-block:hover {
+  border-color: var(--lte-primary);
+}
+
+/* ---------- Copy animation ---------- */
+@keyframes copyFlash {
+  0% { background: #198754; }
+  50% { background: #198754; }
+  100% { background: #f8f9fa; }
+}
+
