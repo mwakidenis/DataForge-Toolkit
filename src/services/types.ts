@@ -101,3 +101,37 @@ export interface RegexReplaceResult {
   replacement: string;
   flags: string;
 }
+
+export interface CsvRow {
+  [key: string]: string;
+}
+
+export interface CsvParseResult {
+  headers: string[];
+  rows: CsvRow[];
+  rowCount: number;
+  delimiter: string;
+  hasHeader: boolean;
+}
+
+export interface CsvStringifyResult {
+  csv: string;
+  headers: string[];
+  rowCount: number;
+}
+
+export interface DiffChange {
+  type: "added" | "removed" | "modified" | "unchanged";
+  path: string;
+  before?: unknown;
+  after?: unknown;
+}
+
+export interface ObjectDiffResult {
+  added: Record<string, unknown>;
+  removed: Record<string, unknown>;
+  modified: Record<string, { before: unknown; after: unknown }>;
+  unchanged: Record<string, unknown>;
+  changes: DiffChange[];
+  similarityScore: number;
+}

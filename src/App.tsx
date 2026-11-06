@@ -3,8 +3,11 @@ import { ErrorBoundary } from "@mwakidenis/logx-react/components/ErrorBoundary";
 import ArrayTransformer from "./components/ArrayTransformer";
 import JsonInspector from "./components/JsonInspector";
 import StatsCalculator from "./components/StatsCalculator";
+import CsvConverter from "./components/CsvConverter";
+import RegexTester from "./components/RegexTester";
+import ObjectDiff from "./components/ObjectDiff";
 
-type Tool = "array" | "json" | "stats";
+type Tool = "array" | "json" | "stats" | "csv" | "regex" | "diff";
 
 interface ToolDef {
   label: string;
@@ -16,6 +19,9 @@ const TOOLS: Record<Tool, ToolDef> = {
   array: { label: "Array & Text Transformer", icon: "bi-sliders", component: ArrayTransformer },
   json: { label: "Object & JSON Inspector", icon: "bi-file-earmark-text", component: JsonInspector },
   stats: { label: "Statistical Calculator", icon: "bi-calculator", component: StatsCalculator },
+  csv: { label: "CSV Converter", icon: "bi-file-earmark-spreadsheet", component: CsvConverter },
+  regex: { label: "Regex Tester", icon: "bi-patch-exclamation", component: RegexTester },
+  diff: { label: "Object Diff", icon: "bi-git", component: ObjectDiff },
 };
 
 export function App(): JSX.Element {
@@ -53,7 +59,7 @@ export function App(): JSX.Element {
             <form className="navbar-search" role="search">
               <label className="visually-hidden">Search</label>
               <div className="navbar-search-field">
-                <input type="search" className="input-field" placeholder="Search…" autoComplete="off" />
+                <input type="search" className="input-field" placeholder="Search tools…" autoComplete="off" />
                 <button className="nav-link navbar-search-submit" type="submit" aria-label="Submit search">
                   <i className="bi bi-search"></i>
                 </button>
