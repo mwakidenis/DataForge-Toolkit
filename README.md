@@ -15,6 +15,7 @@ A production-ready, single-page client-side web application for array, object, a
 | **Regex Tester** | `bi-patch-exclamation` | Live regex matching with flags (g, i, m, s), match highlighting, capture group breakdown, find-all-matches, string replacement bench |
 | **Object Diff** | `bi-git` | Side-by-side deep structural comparison of two JSON objects, highlighting added/removed/modified/unchanged keys with similarity score |
 | **URL Encoder / Decoder** | `bi-link-45deg` | URL encode/decode with `encodeURIComponent`/`encodeURI` methods, query string builder/parser, validity indicator |
+| **Base64 Encoder / Decoder** | `bi-file-earmark-font` | Base64 encode/decode with standard and URL-safe variants, byte count, validity indicator |
 
 ### Architecture
 
@@ -57,6 +58,7 @@ src/
     RegexTester.tsx          # Live regex testing workbench
     ObjectDiff.tsx           # Deep object structural comparison
     UrlEncoder.tsx           # URL encoder/decoder with query params
+    Base64Converter.tsx      # Base64 encoder/decoder
   services/
     index.ts                 # Services barrel export
     types.ts                 # Shared TypeScript types and interfaces
@@ -75,12 +77,13 @@ src/
     regexService.test.ts
     diffService.test.ts
     urlService.test.ts
+    base64Service.test.ts
 ```
 
 ## Quality Gates
 
 - `npm run typecheck` — TypeScript strict mode, zero errors
-- `npm run test` — Vitest: 75 tests passing across 7 service test files
+- `npm run test` — Vitest: 81 tests passing across 8 service test files
 - `npm run build` — Vite production build, zero errors
 - Cloudflare Pages ready (`wrangler.toml`, `_redirects` for SPA fallback)
 

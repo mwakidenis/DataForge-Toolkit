@@ -7,8 +7,9 @@ import CsvConverter from "./components/CsvConverter";
 import RegexTester from "./components/RegexTester";
 import ObjectDiff from "./components/ObjectDiff";
 import UrlEncoder from "./components/UrlEncoder";
+import Base64Converter from "./components/Base64Converter";
 
-type Tool = "array" | "json" | "stats" | "csv" | "regex" | "diff" | "url";
+type Tool = "array" | "json" | "stats" | "csv" | "regex" | "diff" | "url" | "base64";
 
 interface ToolDef {
   label: string;
@@ -24,6 +25,7 @@ const TOOLS: Record<Tool, ToolDef> = {
   regex: { label: "Regex Tester", icon: "bi-patch-exclamation", component: RegexTester },
   diff: { label: "Object Diff", icon: "bi-git", component: ObjectDiff },
   url: { label: "URL Encoder / Decoder", icon: "bi-link-45deg", component: UrlEncoder },
+  base64: { label: "Base64 Encoder / Decoder", icon: "bi-file-earmark-font", component: Base64Converter },
 };
 
 export function App(): JSX.Element {
