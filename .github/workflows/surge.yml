@@ -26,4 +26,9 @@ jobs:
         run: npm install -g surge
 
       - name: Deploy to Surge
-        run: surge ./dist ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
+        env:
+          SURGE_DOMAIN: ${{ secrets.SURGE_DOMAIN }}
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+        run: |
+          CLEAN_SURGE_TOKEN="$(python -c 'import os; print("".join(os.environ["SURGE_TOKEN"].split()))')"
+          surge ./dist "$SURGE_DOMAIN" --token "$CLEAN_SURGE_TOKEN"
