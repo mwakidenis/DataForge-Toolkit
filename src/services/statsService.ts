@@ -12,7 +12,7 @@ import {
   standardDeviation,
   min,
   max,
-} from "@mwakidenis/logx/math";
+} from "../utils/math";
 import type { StatsResult, FrequencyEntry } from "./types";
 
 // ---------------------------------------------------------------------------

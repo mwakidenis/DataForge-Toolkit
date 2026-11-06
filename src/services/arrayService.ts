@@ -3,8 +3,8 @@
 // Pure transformation logic leveraging @mwakidenis/logx
 // ============================================================================
 
-import { unique, chunk, groupBy } from "@mwakidenis/logx/array";
-import { camelCase, snakeCase, kebabCase } from "@mwakidenis/logx/string";
+import { unique, chunk, groupBy } from "../utils/array";
+import { camelCase, snakeCase, kebabCase } from "../utils/string";
 import type { ArrayStats } from "./types";
 
 // ---------------------------------------------------------------------------

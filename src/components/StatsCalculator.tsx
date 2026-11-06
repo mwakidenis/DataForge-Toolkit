@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
-import { useDebouncedValue } from "@mwakidenis/logx-react/hooks/useDebouncedValue";
-import { CopyButton } from "@mwakidenis/logx-react/components/CopyButton";
+import { useDebouncedValue } from "../hooks/useDebouncedValue";
+import { CopyButton } from "../ui/CopyButton";
 import { transformStats, generateSummaryReport } from "../services/statsService";
 
 export function StatsCalculator(): JSX.Element {

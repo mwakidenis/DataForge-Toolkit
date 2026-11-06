@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ErrorBoundary } from "@mwakidenis/logx-react/components/ErrorBoundary";
+import { ErrorBoundary } from "./ui/ErrorBoundary";
 import ArrayTransformer from "./components/ArrayTransformer";
 import JsonInspector from "./components/JsonInspector";
 import StatsCalculator from "./components/StatsCalculator";

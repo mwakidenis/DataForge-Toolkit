@@ -1,8 +1,8 @@
 import { useCallback, useMemo, useState } from "react";
-import { useDebouncedValue } from "@mwakidenis/logx-react/hooks/useDebouncedValue";
-import { useCounter } from "@mwakidenis/logx-react/hooks/useCounter";
-import { useLocalStorage } from "@mwakidenis/logx-react/hooks/useLocalStorage";
-import { CopyButton } from "@mwakidenis/logx-react/components/CopyButton";
+import { useDebouncedValue } from "../hooks/useDebouncedValue";
+import { useCounter } from "../hooks/useCounter";
+import { useLocalStorage } from "../hooks/useLocalStorage";
+import { CopyButton } from "../ui/CopyButton";
 import { transformArray } from "../services/arrayService";
 
 export function ArrayTransformer(): JSX.Element {

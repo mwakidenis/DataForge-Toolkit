@@ -3,7 +3,7 @@
 // Pure transformation logic leveraging @mwakidenis/logx/object
 // ============================================================================
 
-import { get, set, deepClone, pick, omit } from "@mwakidenis/logx/object";
+import { get, set, deepClone, pick, omit } from "../utils/object";
 import type {
   JsonObject,
   JsonValue,

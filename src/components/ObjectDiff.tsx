@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from "react";
-import { useLocalStorage } from "@mwakidenis/logx-react/hooks/useLocalStorage";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 import { deepDiff, formatDiffForDisplay } from "../services/diffService";
 
 export function ObjectDiff(): JSX.Element {

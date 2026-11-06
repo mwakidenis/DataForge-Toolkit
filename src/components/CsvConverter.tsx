@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
-import { useLocalStorage } from "@mwakidenis/logx-react/hooks/useLocalStorage";
-import { CopyButton } from "@mwakidenis/logx-react/components/CopyButton";
+import { useLocalStorage } from "../hooks/useLocalStorage";
+import { CopyButton } from "../ui/CopyButton";
 import {
   parseCsv,
   stringifyCsv,
