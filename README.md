@@ -14,10 +14,11 @@ A production-ready, single-page client-side web application for array, object, a
 | **CSV Converter** | `bi-file-earmark-spreadsheet` | Bidirectional CSV ⇄ JSON conversion with live tabular preview, delimiter selection (comma, tab, semicolon, pipe), header detection, auto-detect delimiter, downloadable exports |
 | **Regex Tester** | `bi-patch-exclamation` | Live regex matching with flags (g, i, m, s), match highlighting, capture group breakdown, find-all-matches, string replacement bench |
 | **Object Diff** | `bi-git` | Side-by-side deep structural comparison of two JSON objects, highlighting added/removed/modified/unchanged keys with similarity score |
+| **URL Encoder / Decoder** | `bi-link-45deg` | URL encode/decode with `encodeURIComponent`/`encodeURI` methods, query string builder/parser, validity indicator |
 
 ### Architecture
 
-- **Service Layer** (`src/services/`): Pure TypeScript service functions leveraging `@mwakidenis/logx` utilities — `arrayService`, `jsonService`, `statsService`, `csvService`, `regexService`, `diffService`
+- **Service Layer** (`src/services/`): Pure TypeScript service functions leveraging `@mwakidenis/logx` utilities — `arrayService`, `jsonService`, `statsService`, `csvService`, `regexService`, `diffService`, `urlService`
 - **Error Boundary** wrapping the entire app for graceful error handling
 - **Persistent state** via `useLocalStorage` for user inputs and preferences across sessions
 - **Debounced input** via `useDebouncedValue` to prevent layout lag
@@ -55,15 +56,17 @@ src/
     CsvConverter.tsx         # CSV ⇄ JSON bidirectional converter
     RegexTester.tsx          # Live regex testing workbench
     ObjectDiff.tsx           # Deep object structural comparison
+    UrlEncoder.tsx           # URL encoder/decoder with query params
   services/
-    index.ts             # Services barrel export
-    types.ts             # Shared TypeScript types and interfaces
-    arrayService.ts      # Array operations (dedupe, chunk, group, case, regex filter)
-    jsonService.ts       # JSON operations (get, set, clone, pick, omit, validate)
-    statsService.ts      # Statistical computations (percentiles, IQR, frequency)
-    csvService.ts        # CSV parsing and stringification
-    regexService.ts      # Regex matching, replacement, validation
-    diffService.ts       # Deep object diff with similarity scoring
+    index.ts                 # Services barrel export
+    types.ts                 # Shared TypeScript types and interfaces
+    arrayService.ts          # Array operations (dedupe, chunk, group, case, regex filter)
+    jsonService.ts           # JSON operations (get, set, clone, pick, omit, validate)
+    statsService.ts          # Statistical computations (percentiles, IQR, frequency)
+    csvService.ts            # CSV parsing and stringification
+    regexService.ts          # Regex matching, replacement, validation
+    diffService.ts           # Deep object diff with similarity scoring
+    urlService.ts            # URL encoding/decoding, query string builder/parser
   __tests__/
     arrayService.test.ts
     jsonService.test.ts
@@ -71,12 +74,13 @@ src/
     csvService.test.ts
     regexService.test.ts
     diffService.test.ts
+    urlService.test.ts
 ```
 
 ## Quality Gates
 
 - `npm run typecheck` — TypeScript strict mode, zero errors
-- `npm run test` — Vitest: 68 tests passing across 6 service test files
+- `npm run test` — Vitest: 75 tests passing across 7 service test files
 - `npm run build` — Vite production build, zero errors
 - Cloudflare Pages ready (`wrangler.toml`, `_redirects` for SPA fallback)
 

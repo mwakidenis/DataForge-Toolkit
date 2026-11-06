@@ -9,3 +9,4 @@ export * from "./statsService";
 export * from "./csvService";
 export * from "./regexService";
 export * from "./diffService";
+export * from "./urlService";

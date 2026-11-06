@@ -6,8 +6,9 @@ import StatsCalculator from "./components/StatsCalculator";
 import CsvConverter from "./components/CsvConverter";
 import RegexTester from "./components/RegexTester";
 import ObjectDiff from "./components/ObjectDiff";
+import UrlEncoder from "./components/UrlEncoder";
 
-type Tool = "array" | "json" | "stats" | "csv" | "regex" | "diff";
+type Tool = "array" | "json" | "stats" | "csv" | "regex" | "diff" | "url";
 
 interface ToolDef {
   label: string;
@@ -22,6 +23,7 @@ const TOOLS: Record<Tool, ToolDef> = {
   csv: { label: "CSV Converter", icon: "bi-file-earmark-spreadsheet", component: CsvConverter },
   regex: { label: "Regex Tester", icon: "bi-patch-exclamation", component: RegexTester },
   diff: { label: "Object Diff", icon: "bi-git", component: ObjectDiff },
+  url: { label: "URL Encoder / Decoder", icon: "bi-link-45deg", component: UrlEncoder },
 };
 
 export function App(): JSX.Element {
